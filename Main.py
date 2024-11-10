@@ -14,7 +14,6 @@ class FuncionesWindow(QWidget):
         button_layout = QHBoxLayout()
         self.arduino = arduino
         
-        # Crear botones y configurar tamaño
         self.pushButton_4 = QPushButton("Botón 4")
         self.pushButton_4.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.pushButton_4.setFixedHeight(100)
@@ -23,22 +22,19 @@ class FuncionesWindow(QWidget):
         self.pushButton_5.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.pushButton_5.setFixedHeight(100)
         
-        # Agregar los botones al layout horizontal
         button_layout.addWidget(self.pushButton_4)
         button_layout.addWidget(self.pushButton_5)
         layout.addLayout(button_layout)
 
         self.pushButton_4.clicked.connect(self.enviar_senal_a)
         self.pushButton_5.clicked.connect(self.enviar_senal_b)
+        
     def enviar_senal_a(self):
-        #self.arduino.is_open
-        self.arduino.write('A')  # Enviar la señal 'A' como bytes
+        self.arduino.write('A')
         
         print("No se pudo enviar la señal: Puerto cerrado.")
     def enviar_senal_b(self):
-        #if self.arduino.is_open:
-        self.arduino.write('B')  # Enviar la señal 'B' como bytes
-        #else:
+        self.arduino.write('B')
         print("No se pudo enviar la señal: Puerto cerrado.")
 
 class MainWindow(QMainWindow):
@@ -65,7 +61,7 @@ class MainWindow(QMainWindow):
         
         self.ui.pushButton_3.clicked.connect(self.inicio)
         try:
-            self.arduino = serial.Serial('COM3', 9600)  # Cambia 'COM3' por tu puerto correcto
+            self.arduino = serial.Serial('COM3', 9600)  # Cambia 'COM3' por el puerto correcto del arduino si no no anda
             print("Conexión establecida con el Arduino.")
         except serial.SerialException as e:
             print(f"No se pudo conectar al Arduino: {e}")
